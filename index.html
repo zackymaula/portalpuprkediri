@@ -1,1 +1,658 @@
-Portal Dinas PUPR Kota Kediri
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Portal Layanan Digital — Dinas PUPR Kota Kediri</title>
+<meta name="description" content="Portal layanan digital Dinas Pekerjaan Umum dan Penataan Ruang Kota Kediri">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --navy-deep:#0a1f3d;
+    --navy-panel:#12395f;
+    --navy-panel-2:#0e2c4d;
+    --blue-line:#4a9de0;
+    --blue-line-soft:rgba(74,157,224,0.18);
+    --amber:#f0a202;
+    --amber-soft:rgba(240,162,2,0.15);
+    --paper:#f5f3ea;
+    --steel:#93a8c9;
+    --steel-dim:#5f7495;
+    --ink:#0f2038;
+    --radius:2px;
+    --ease:cubic-bezier(.22,.9,.34,1);
+  }
+
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--navy-deep);
+    color:var(--paper);
+    font-family:'IBM Plex Sans', sans-serif;
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+  }
+  h1,h2,h3{
+    font-family:'Space Grotesk', sans-serif;
+    margin:0;
+    letter-spacing:-0.01em;
+  }
+  .mono{
+    font-family:'IBM Plex Mono', monospace;
+    letter-spacing:0.06em;
+  }
+  a{color:inherit;text-decoration:none;}
+  img{max-width:100%;display:block;}
+
+  /* ---------- Background blueprint grid ---------- */
+  .blueprint-bg{
+    position:fixed;
+    inset:0;
+    z-index:0;
+    pointer-events:none;
+    background-image:
+      linear-gradient(var(--blue-line-soft) 1px, transparent 1px),
+      linear-gradient(90deg, var(--blue-line-soft) 1px, transparent 1px);
+    background-size:44px 44px;
+    background-position:center;
+    -webkit-mask-image:radial-gradient(ellipse 90% 70% at 50% 0%, #000 40%, transparent 85%);
+    mask-image:radial-gradient(ellipse 90% 70% at 50% 0%, #000 40%, transparent 85%);
+    opacity:0;
+    animation:fadeGrid 1.8s var(--ease) forwards;
+    animation-delay:.15s;
+  }
+  @keyframes fadeGrid{to{opacity:1;}}
+
+  /* ---------- Header ---------- */
+  header{
+    position:sticky;
+    top:0;
+    z-index:50;
+    background:rgba(10,31,61,0.88);
+    backdrop-filter:blur(10px);
+    border-bottom:1px solid rgba(74,157,224,0.25);
+  }
+  .header-inner{
+    max-width:1240px;
+    margin:0 auto;
+    padding:14px 28px;
+    display:flex;
+    align-items:center;
+    gap:16px;
+  }
+  .brand{
+    display:flex;
+    align-items:center;
+    gap:14px;
+    flex:1;
+    min-width:0;
+  }
+  .brand-logos{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    flex-shrink:0;
+  }
+  .brand-logos img{
+    height:42px;
+    width:42px;
+    border-radius:50%;
+    opacity:0;
+    transform:translateY(-8px);
+    animation:dropIn .7s var(--ease) forwards;
+  }
+  .brand-logos img:nth-child(2){animation-delay:.12s;}
+  @keyframes dropIn{to{opacity:1;transform:translateY(0);}}
+  .brand-text{min-width:0;}
+  .brand-text .eyebrow{
+    font-size:10.5px;
+    color:var(--amber);
+    text-transform:uppercase;
+    display:block;
+    margin-bottom:2px;
+  }
+  .brand-text .title{
+    font-size:15.5px;
+    font-weight:600;
+    color:var(--paper);
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
+  }
+  .header-status{
+    font-size:11px;
+    color:var(--steel);
+    display:flex;
+    align-items:center;
+    gap:8px;
+    flex-shrink:0;
+  }
+  .header-status .dot{
+    width:7px;height:7px;border-radius:50%;
+    background:#3ddc84;
+    box-shadow:0 0 0 0 rgba(61,220,132,.6);
+    animation:pulse 2.4s infinite;
+  }
+  @keyframes pulse{
+    0%{box-shadow:0 0 0 0 rgba(61,220,132,.55);}
+    70%{box-shadow:0 0 0 8px rgba(61,220,132,0);}
+    100%{box-shadow:0 0 0 0 rgba(61,220,132,0);}
+  }
+  @media (max-width:640px){
+    .header-status{display:none;}
+    .brand-text .title{font-size:13px;}
+  }
+
+  /* ---------- Hero ---------- */
+  .hero{
+    position:relative;
+    z-index:1;
+    max-width:1240px;
+    margin:0 auto;
+    padding:88px 28px 56px;
+  }
+  .hero-tag{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    font-size:11.5px;
+    color:var(--amber);
+    border:1px solid rgba(240,162,2,0.4);
+    padding:5px 12px;
+    border-radius:100px;
+    opacity:0;
+    animation:riseIn .7s var(--ease) forwards;
+    animation-delay:.25s;
+  }
+  .hero-tag::before{
+    content:'';
+    width:6px;height:6px;
+    background:var(--amber);
+    display:inline-block;
+    transform:rotate(45deg);
+  }
+  .hero h1{
+    font-size:clamp(34px, 5.4vw, 60px);
+    line-height:1.06;
+    margin-top:20px;
+    max-width:16ch;
+    color:var(--paper);
+    opacity:0;
+    animation:riseIn .8s var(--ease) forwards;
+    animation-delay:.4s;
+  }
+  .hero h1 em{
+    font-style:normal;
+    color:var(--amber);
+  }
+  .hero p.lede{
+    margin-top:20px;
+    max-width:56ch;
+    font-size:16.5px;
+    line-height:1.65;
+    color:var(--steel);
+    opacity:0;
+    animation:riseIn .8s var(--ease) forwards;
+    animation-delay:.55s;
+  }
+  @keyframes riseIn{
+    from{opacity:0;transform:translateY(16px);}
+    to{opacity:1;transform:translateY(0);}
+  }
+
+  .hero-meta{
+    margin-top:40px;
+    display:grid;
+    grid-template-columns:repeat(3,minmax(0,1fr));
+    gap:1px;
+    background:rgba(74,157,224,0.25);
+    border:1px solid rgba(74,157,224,0.25);
+    max-width:640px;
+    opacity:0;
+    animation:riseIn .8s var(--ease) forwards;
+    animation-delay:.7s;
+  }
+  .hero-meta div{
+    background:var(--navy-deep);
+    padding:14px 16px;
+  }
+  .hero-meta .num{
+    font-size:22px;
+    font-weight:600;
+    font-family:'Space Grotesk',sans-serif;
+    color:var(--paper);
+  }
+  .hero-meta .lbl{
+    font-size:10.5px;
+    color:var(--steel-dim);
+    text-transform:uppercase;
+    margin-top:3px;
+  }
+  @media (max-width:560px){
+    .hero-meta{grid-template-columns:1fr 1fr;}
+  }
+
+  /* ---------- Section label ---------- */
+  .section-head{
+    max-width:1240px;
+    margin:0 auto;
+    padding:0 28px;
+    position:relative;
+    z-index:1;
+    display:flex;
+    align-items:flex-end;
+    justify-content:space-between;
+    gap:20px;
+    margin-top:64px;
+  }
+  .section-head .left .eyebrow{
+    font-size:11px;
+    color:var(--blue-line);
+    text-transform:uppercase;
+    display:block;
+    margin-bottom:8px;
+  }
+  .section-head h2{
+    font-size:clamp(22px,3vw,30px);
+    color:var(--paper);
+  }
+  .section-head .code{
+    font-size:11px;
+    color:var(--steel-dim);
+    white-space:nowrap;
+  }
+
+  /* ---------- App grid ---------- */
+  .app-grid{
+    position:relative;
+    z-index:1;
+    max-width:1240px;
+    margin:28px auto 0;
+    padding:0 28px 100px;
+    display:grid;
+    grid-template-columns:repeat(4,minmax(0,1fr));
+    gap:16px;
+  }
+  @media (max-width:1000px){
+    .app-grid{grid-template-columns:repeat(2,minmax(0,1fr));}
+  }
+  @media (max-width:560px){
+    .app-grid{grid-template-columns:1fr;padding-left:20px;padding-right:20px;}
+    .hero{padding-left:20px;padding-right:20px;}
+    .section-head{padding-left:20px;padding-right:20px;}
+  }
+
+  .card{
+    position:relative;
+    background:linear-gradient(180deg, var(--navy-panel) 0%, var(--navy-panel-2) 100%);
+    border:1px solid rgba(74,157,224,0.22);
+    padding:22px 20px 20px;
+    display:flex;
+    flex-direction:column;
+    gap:14px;
+    min-height:210px;
+    opacity:0;
+    transform:translateY(22px);
+    transition:transform .45s var(--ease), border-color .3s, box-shadow .3s;
+  }
+  .card.in-view{
+    animation:cardIn .65s var(--ease) forwards;
+  }
+  @keyframes cardIn{
+    to{opacity:1;transform:translateY(0);}
+  }
+  .card:hover{
+    transform:translateY(-5px);
+    border-color:rgba(240,162,2,0.55);
+    box-shadow:0 18px 34px -18px rgba(0,0,0,0.55);
+  }
+  .card::before, .card::after{
+    content:'';
+    position:absolute;
+    width:10px;height:10px;
+    border-color:var(--amber);
+    opacity:0;
+    transition:opacity .3s;
+  }
+  .card::before{top:-1px;left:-1px;border-top:2px solid;border-left:2px solid;}
+  .card::after{bottom:-1px;right:-1px;border-bottom:2px solid;border-right:2px solid;}
+  .card:hover::before, .card:hover::after{opacity:1;}
+
+  .card-top{
+    display:flex;
+    align-items:flex-start;
+    justify-content:space-between;
+  }
+  .card-icon{
+    width:46px;height:46px;
+    border-radius:50%;
+    background:var(--amber-soft);
+    display:flex;align-items:center;justify-content:center;
+    color:var(--amber);
+    flex-shrink:0;
+    transition:background .3s, transform .35s var(--ease);
+  }
+  .card-icon svg{width:24px;height:24px;}
+  .card:hover .card-icon{
+    background:var(--amber);
+    color:var(--navy-deep);
+    transform:rotate(-6deg) scale(1.05);
+  }
+  .card-code{
+    font-size:10.5px;
+    color:var(--steel-dim);
+  }
+  .card h3{
+    font-size:17px;
+    color:var(--paper);
+    line-height:1.3;
+  }
+  .card p{
+    font-size:13.2px;
+    line-height:1.55;
+    color:var(--steel);
+    margin:0;
+    flex:1;
+  }
+  .card-link{
+    display:flex;
+    align-items:center;
+    gap:6px;
+    font-size:12.5px;
+    color:var(--blue-line);
+    margin-top:4px;
+  }
+  .card-link .arrow{
+    display:inline-block;
+    transition:transform .3s var(--ease);
+  }
+  .card:hover .card-link{color:var(--amber);}
+  .card:hover .card-link .arrow{transform:translateX(4px);}
+
+  /* ---------- Info strip ---------- */
+  .strip{
+    position:relative;
+    z-index:1;
+    border-top:1px solid rgba(74,157,224,0.22);
+    border-bottom:1px solid rgba(74,157,224,0.22);
+    background:rgba(18,57,95,0.25);
+  }
+  .strip-inner{
+    max-width:1240px;
+    margin:0 auto;
+    padding:26px 28px;
+    display:flex;
+    flex-wrap:wrap;
+    gap:14px 40px;
+    justify-content:space-between;
+    font-size:12.5px;
+    color:var(--steel);
+  }
+  .strip-inner b{color:var(--paper);font-weight:600;}
+
+  /* ---------- Footer ---------- */
+  footer{
+    position:relative;
+    z-index:1;
+    padding:56px 28px 28px;
+    max-width:1240px;
+    margin:0 auto;
+  }
+  .footer-grid{
+    display:grid;
+    grid-template-columns:1.4fr 1fr 1fr;
+    gap:32px;
+  }
+  @media (max-width:720px){
+    .footer-grid{grid-template-columns:1fr;}
+  }
+  .footer-brand{
+    display:flex;
+    gap:12px;
+    align-items:center;
+  }
+  .footer-brand img{width:38px;height:38px;border-radius:50%;}
+  .footer-brand .name{font-size:14px;font-weight:600;color:var(--paper);}
+  .footer-brand .sub{font-size:11.5px;color:var(--steel-dim);margin-top:2px;}
+  footer h4{
+    font-size:11px;
+    text-transform:uppercase;
+    letter-spacing:0.08em;
+    color:var(--steel-dim);
+    margin-bottom:14px;
+    font-family:'IBM Plex Mono',monospace;
+    font-weight:400;
+  }
+  footer p, footer li{
+    font-size:13px;
+    color:var(--steel);
+    line-height:1.9;
+  }
+  footer ul{list-style:none;padding:0;margin:0;}
+  footer ul li a{
+    color:var(--steel);
+    transition:color .2s;
+  }
+  footer ul li a:hover{color:var(--amber);}
+  .footer-bottom{
+    margin-top:44px;
+    padding-top:20px;
+    border-top:1px solid rgba(74,157,224,0.18);
+    display:flex;
+    flex-wrap:wrap;
+    gap:10px;
+    justify-content:space-between;
+    font-size:11.5px;
+    color:var(--steel-dim);
+  }
+
+  /* focus visibility */
+  a:focus-visible, .card:focus-visible{
+    outline:2px solid var(--amber);
+    outline-offset:3px;
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    *{animation-duration:.001s !important; animation-iteration-count:1 !important; transition-duration:.001s !important;}
+  }
+</style>
+</head>
+<body>
+
+<div class="blueprint-bg" aria-hidden="true"></div>
+
+<header>
+  <div class="header-inner">
+    <div class="brand">
+      <div class="brand-logos">
+        <img src="logo/logo-kediri.svg" alt="Logo Kota Kediri">
+        <img src="logo/logo-pupr.svg" alt="Logo Dinas PUPR">
+      </div>
+      <div class="brand-text">
+        <span class="eyebrow mono">Pemerintah Kota Kediri</span>
+        <span class="title">Dinas Pekerjaan Umum dan Penataan Ruang</span>
+      </div>
+    </div>
+    <div class="header-status mono">
+      <span class="dot"></span> Sistem Aktif
+    </div>
+  </div>
+</header>
+
+<section class="hero">
+  <span class="hero-tag mono">GBR. 01 — PORTAL LAYANAN DIGITAL</span>
+  <h1>Satu pintu menuju seluruh <em>layanan digital</em> infrastruktur kota.</h1>
+  <p class="lede">Portal terpadu Dinas PUPR Kota Kediri untuk mengakses aplikasi perizinan, pelaporan, data aset, dan pemantauan proyek infrastruktur — dirancang untuk warga, kontraktor, dan staf dinas.</p>
+
+  <div class="hero-meta">
+    <div>
+      <div class="num">8</div>
+      <div class="lbl mono">Aplikasi Terhubung</div>
+    </div>
+    <div>
+      <div class="num">24/7</div>
+      <div class="lbl mono">Layanan Daring</div>
+    </div>
+    <div>
+      <div class="num">01</div>
+      <div class="lbl mono">Portal Terpadu</div>
+    </div>
+  </div>
+</section>
+
+<div class="section-head">
+  <div class="left">
+    <span class="eyebrow mono">Indeks Aplikasi</span>
+    <h2>Pilih layanan yang Anda butuhkan</h2>
+  </div>
+  <span class="code mono">APL-01 &mdash; APL-08</span>
+</div>
+
+<section class="app-grid" id="appGrid">
+
+  <a class="card" href="#" data-code="APL-01">
+    <div class="card-top">
+      <div class="card-icon"><img src="icon/icon-perizinan.svg" alt="" style="width:24px;height:24px;filter:brightness(0) saturate(100%) invert(1);"></div>
+      <span class="card-code mono">APL-01</span>
+    </div>
+    <h3>SIM Perizinan PUPR</h3>
+    <p>Pengajuan dan pemantauan izin mendirikan bangunan (PBG) serta izin teknis infrastruktur secara daring.</p>
+    <span class="card-link mono">Buka aplikasi <span class="arrow">→</span></span>
+  </a>
+
+  <a class="card" href="#" data-code="APL-02">
+    <div class="card-top">
+      <div class="card-icon"><img src="icon/icon-lapor.svg" alt="" style="width:24px;height:24px;filter:brightness(0) saturate(100%) invert(1);"></div>
+      <span class="card-code mono">APL-02</span>
+    </div>
+    <h3>Lapor Infrastruktur</h3>
+    <p>Sampaikan laporan kerusakan jalan, jembatan, drainase, dan fasilitas umum langsung ke dinas.</p>
+    <span class="card-link mono">Buka aplikasi <span class="arrow">→</span></span>
+  </a>
+
+  <a class="card" href="#" data-code="APL-03">
+    <div class="card-top">
+      <div class="card-icon"><img src="icon/icon-aset.svg" alt="" style="width:24px;height:24px;filter:brightness(0) saturate(100%) invert(1);"></div>
+      <span class="card-code mono">APL-03</span>
+    </div>
+    <h3>SIMANTAP Aset</h3>
+    <p>Sistem manajemen data aset dan barang milik daerah di lingkup infrastruktur kota.</p>
+    <span class="card-link mono">Buka aplikasi <span class="arrow">→</span></span>
+  </a>
+
+  <a class="card" href="#" data-code="APL-04">
+    <div class="card-top">
+      <div class="card-icon"><img src="icon/icon-peta.svg" alt="" style="width:24px;height:24px;filter:brightness(0) saturate(100%) invert(1);"></div>
+      <span class="card-code mono">APL-04</span>
+    </div>
+    <h3>Peta Jalan &amp; Jembatan</h3>
+    <p>Peta digital kondisi ruas jalan, jembatan, dan titik pekerjaan infrastruktur terkini.</p>
+    <span class="card-link mono">Buka aplikasi <span class="arrow">→</span></span>
+  </a>
+
+  <a class="card" href="#" data-code="APL-05">
+    <div class="card-top">
+      <div class="card-icon"><img src="icon/icon-konsultasi.svg" alt="" style="width:24px;height:24px;filter:brightness(0) saturate(100%) invert(1);"></div>
+      <span class="card-code mono">APL-05</span>
+    </div>
+    <h3>E-Konsultasi Publik</h3>
+    <p>Konsultasi teknis daring dengan petugas dinas terkait rencana pembangunan dan tata ruang.</p>
+    <span class="card-link mono">Buka aplikasi <span class="arrow">→</span></span>
+  </a>
+
+  <a class="card" href="#" data-code="APL-06">
+    <div class="card-top">
+      <div class="card-icon"><img src="icon/icon-pengadaan.svg" alt="" style="width:24px;height:24px;filter:brightness(0) saturate(100%) invert(1);"></div>
+      <span class="card-code mono">APL-06</span>
+    </div>
+    <h3>Portal Pengadaan</h3>
+    <p>Informasi dan akses proses pengadaan barang/jasa konstruksi di lingkungan dinas.</p>
+    <span class="card-link mono">Buka aplikasi <span class="arrow">→</span></span>
+  </a>
+
+  <a class="card" href="#" data-code="APL-07">
+    <div class="card-top">
+      <div class="card-icon"><img src="icon/icon-monitoring.svg" alt="" style="width:24px;height:24px;filter:brightness(0) saturate(100%) invert(1);"></div>
+      <span class="card-code mono">APL-07</span>
+    </div>
+    <h3>Dashboard Monitoring Proyek</h3>
+    <p>Pantau progres fisik dan anggaran proyek infrastruktur yang sedang berjalan secara real-time.</p>
+    <span class="card-link mono">Buka aplikasi <span class="arrow">→</span></span>
+  </a>
+
+  <a class="card" href="#" data-code="APL-08">
+    <div class="card-top">
+      <div class="card-icon"><img src="icon/icon-rekomendasi.svg" alt="" style="width:24px;height:24px;filter:brightness(0) saturate(100%) invert(1);"></div>
+      <span class="card-code mono">APL-08</span>
+    </div>
+    <h3>Rekomendasi Teknis</h3>
+    <p>Ajukan permohonan rekomendasi teknis untuk keperluan pembangunan dan penataan ruang.</p>
+    <span class="card-link mono">Buka aplikasi <span class="arrow">→</span></span>
+  </a>
+
+</section>
+
+<div class="strip">
+  <div class="strip-inner mono">
+    <span><b>Jam Layanan</b> — Senin–Jumat, 08.00–16.00 WIB</span>
+    <span><b>Lokasi</b> — Kantor Dinas PUPR Kota Kediri, Jl. Contoh No. 1</span>
+    <span><b>Kontak</b> — (0354) 000000</span>
+  </div>
+</div>
+
+<footer>
+  <div class="footer-grid">
+    <div>
+      <div class="footer-brand">
+        <img src="logo/logo-kediri.svg" alt="Logo Kota Kediri">
+        <div>
+          <div class="name">Dinas PUPR Kota Kediri</div>
+          <div class="sub">Pekerjaan Umum dan Penataan Ruang</div>
+        </div>
+      </div>
+      <p style="margin-top:16px;max-width:34ch;">Portal resmi layanan digital untuk mendukung pembangunan infrastruktur kota yang transparan dan responsif.</p>
+    </div>
+    <div>
+      <h4>Tautan Layanan</h4>
+      <ul>
+        <li><a href="#">SIM Perizinan PUPR</a></li>
+        <li><a href="#">Lapor Infrastruktur</a></li>
+        <li><a href="#">Dashboard Monitoring</a></li>
+        <li><a href="#">Portal Pengadaan</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Kontak Dinas</h4>
+      <ul>
+        <li>Jl. Contoh No. 1, Kediri</li>
+        <li>(0354) 000000</li>
+        <li>pupr@kedirikota.go.id (dummy)</li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom mono">
+    <span>© 2026 Dinas PUPR Kota Kediri. Seluruh hak cipta dilindungi.</span>
+    <span>Konten &amp; tautan bersifat contoh (dummy)</span>
+  </div>
+</footer>
+
+<script>
+  // Scroll reveal for cards
+  const cards = document.querySelectorAll('.card');
+  const io = new IntersectionObserver((entries)=>{
+    entries.forEach((entry, i)=>{
+      if(entry.isIntersecting){
+        setTimeout(()=>{
+          entry.target.classList.add('in-view');
+        }, i * 60);
+        io.unobserve(entry.target);
+      }
+    });
+  }, {threshold:0.15});
+  cards.forEach(c=>io.observe(c));
+</script>
+
+</body>
+</html>
